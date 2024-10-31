@@ -1,29 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Transform target; // Target to move towards
+    public float speed = 5.0f; // Speed of the NavMeshAgent
 
-    public float speed = 5.0f; // Speed of the player
-    private float horizontalInput; // Stores horizontal input from the player
-    private float forwardInput; // Stores vertical input from the player
+    private NavMeshAgent agent; // NavMeshAgent variable
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        agent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
+        agent.speed = speed; // Set the speed of the NavMeshAgent
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Get player input
-        horizontalInput = Input.GetAxis("Horizontal");
-        forwardInput = Input.GetAxis("Vertical");
-
-        // Move the player based on input
-        transform.Translate(Vector3.forward * Time.deltaTime * speed * forwardInput);
-        transform.Translate(Vector3.right * Time.deltaTime * speed * horizontalInput);
+        if (target != null)
+        {
+            agent.destination = target.position; // Set the destination of the NavMeshAgent to the target's position
+            Debug.Log("Target Position: " + target.position + ", Agent Position: " + agent.transform.position);
+        }
+        else
+        {
+            Debug.Log("No target assigned.");
+        }
     }
+
 }
