@@ -154,6 +154,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Instantiate the new agent prefab at the agent's current position and rotation
             GameObject newAgentInstance = Instantiate(newAgentPrefab, transform.position, transform.rotation);
+            //GameObject.Find("DeliveryRobotBody_01_non_cute");//
             agent = newAgentInstance.GetComponent<NavMeshAgent>();
             agent.speed = speed;
             loadSceneButton.gameObject.SetActive(false);
@@ -169,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-        void OnDrawGizmos()
+    void OnDrawGizmos()
     {
         if (trajectories != null)
         {
