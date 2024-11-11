@@ -8,6 +8,8 @@ public class PlayerMovement : MonoBehaviour
     public List<List<Vector3>> trajectories; // List of trajectories (each trajectory is a list of waypoints)
     public float speed = 5.0f; // Speed of the NavMeshAgent
     public Button nextTrajectoryButton; // Button to start the next trajectory
+    public Button loadSceneButton; // Button to load a new scene
+    public GameObject newAgentPrefab;
 
     private NavMeshAgent agent; // NavMeshAgent variable
     private List<Vector3> currentTrajectory; // The currently active trajectory
@@ -24,7 +26,9 @@ public class PlayerMovement : MonoBehaviour
         StartTrajectory(currentTrajectoryIndex); // Start the first trajectory
 
         nextTrajectoryButton.gameObject.SetActive(false); // Hide the button initially
+        loadSceneButton.gameObject.SetActive(false);
         nextTrajectoryButton.onClick.AddListener(StartNextTrajectory); // Add listener for button click
+        loadSceneButton.onClick.AddListener(LoadNewScene);
     }
 
     void Update()
@@ -40,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
 
             // Show the button when the trajectory is completed
             nextTrajectoryButton.gameObject.SetActive(true);
+            loadSceneButton.gameObject.SetActive(true);
         }
     }
 
@@ -80,7 +85,9 @@ public class PlayerMovement : MonoBehaviour
 
         if (currentTrajectory.Count > 0)
         {
-            nextTrajectoryButton.gameObject.SetActive(false); // Hide the button when movement starts
+            nextTrajectoryButton.gameObject.SetActive(false);
+
+            loadSceneButton.gameObject.SetActive(false);// Hide the button when movement starts
             MoveToNextWaypoint(); // Start moving to the first waypoint
         }
     }
@@ -102,7 +109,9 @@ public class PlayerMovement : MonoBehaviour
         else
         {
             Debug.Log("All trajectories completed!");
-            nextTrajectoryButton.gameObject.SetActive(false); // Hide the button if no more trajectories
+            nextTrajectoryButton.gameObject.SetActive(false);
+
+            loadSceneButton.gameObject.SetActive(true);// Hide the button if no more trajectories
         }
     }
 
@@ -136,7 +145,31 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Moving to waypoint: " + nextWaypoint);
     }
 
-    void OnDrawGizmos()
+    void LoadNewScene()
+    {
+        if (newAgentPrefab != null)
+        {
+            // Destroy the existing agent
+            Destroy(agent.gameObject);
+
+            // Instantiate the new agent prefab at the agent's current position and rotation
+            GameObject newAgentInstance = Instantiate(newAgentPrefab, transform.position, transform.rotation);
+            agent = newAgentInstance.GetComponent<NavMeshAgent>();
+            agent.speed = speed;
+            loadSceneButton.gameObject.SetActive(false);
+
+            // Reset robot position 
+            TeleportToStartingPosition(new Vector3(3, 0, -4));
+
+            // Reset trajectories 
+            currentTrajectoryIndex = 0;
+
+
+            StartTrajectory(currentTrajectoryIndex); // Start trajectory
+        }
+    }
+
+        void OnDrawGizmos()
     {
         if (trajectories != null)
         {
