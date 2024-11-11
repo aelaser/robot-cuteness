@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/SampleScene.unity
+- path: Assets/OutPost/Resources/Scenes/NYC_Block_6.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
