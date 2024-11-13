@@ -10,6 +10,8 @@ public class PlayerMovement : MonoBehaviour
     public Button nextTrajectoryButton; // Button to start the next trajectory
     public Button loadSceneButton; // Button to load a new scene
     public GameObject newAgentPrefab;
+    public CameraFollow cameraFollowScript; // Reference to the camera follow script
+
 
     private NavMeshAgent agent; // NavMeshAgent variable
     private List<Vector3> currentTrajectory; // The currently active trajectory
@@ -160,6 +162,11 @@ public class PlayerMovement : MonoBehaviour
             Transform newTransform = newAgentInstance.transform;
             agent.speed = speed;
             loadSceneButton.gameObject.SetActive(false);
+            // Update the camera follow target
+            if (cameraFollowScript != null)
+            {
+                cameraFollowScript.target = newTransform;
+            }
             
             // Reset robot position 
             TeleportToStartingPosition(new Vector3(3, 0, -4), newTransform);
