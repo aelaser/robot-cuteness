@@ -101,7 +101,7 @@ public class PlayerMovement : MonoBehaviour
             currentTrajectoryIndex++;
 
             // Instantly teleport the robot to a fixed starting position 
-            TeleportToStartingPosition(new Vector3(3, 0, -4));
+            TeleportToStartingPosition(new Vector3(3, 0, -4), transform);
 
             // Start the new trajectory
             StartTrajectory(currentTrajectoryIndex);
@@ -116,10 +116,10 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Teleport the robot to the starting position
-    void TeleportToStartingPosition(Vector3 startingPosition)
+    void TeleportToStartingPosition(Vector3 startingPosition, Transform newTransform)
     {
         agent.enabled = false; // Disable the NavMeshAgent to modify the transform directly
-        transform.position = startingPosition; // Instantly set the robot's position
+        newTransform.position = startingPosition; // Instantly set the robot's position
         agent.enabled = true; // Re-enable the NavMeshAgent for subsequent movement
         Debug.Log("Teleported to starting position: " + startingPosition);
     }
@@ -156,11 +156,13 @@ public class PlayerMovement : MonoBehaviour
             GameObject newAgentInstance = Instantiate(newAgentPrefab, transform.position, transform.rotation);
             //GameObject.Find("DeliveryRobotBody_01_non_cute");//
             agent = newAgentInstance.GetComponent<NavMeshAgent>();
+            // Use the new object's transform for subsequent updates
+            Transform newTransform = newAgentInstance.transform;
             agent.speed = speed;
             loadSceneButton.gameObject.SetActive(false);
-
+            
             // Reset robot position 
-            TeleportToStartingPosition(new Vector3(3, 0, -4));
+            TeleportToStartingPosition(new Vector3(3, 0, -4), newTransform);
 
             // Reset trajectories 
             currentTrajectoryIndex = 0;
