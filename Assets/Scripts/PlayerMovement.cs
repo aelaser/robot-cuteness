@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private int currentWaypointIndex = 0; // Index of the current waypoint in the trajectory
     private int currentTrajectoryIndex = 0; // Index of the current trajectory
     private bool isMoving = false; // Flag to control movement
+    private Vector3 startPos = new Vector3(6, 0, -6);
 
     void Start()
     {
@@ -103,7 +104,7 @@ public class PlayerMovement : MonoBehaviour
             currentTrajectoryIndex++;
 
             // Instantly teleport the robot to a fixed starting position 
-            TeleportToStartingPosition(new Vector3(3, 0, -4), transform);
+            TeleportToStartingPosition(startPos, transform);
 
             // Start the new trajectory
             StartTrajectory(currentTrajectoryIndex);
@@ -169,7 +170,7 @@ public class PlayerMovement : MonoBehaviour
             }
             
             // Reset robot position 
-            TeleportToStartingPosition(new Vector3(3, 0, -4), newTransform);
+            TeleportToStartingPosition(startPos, newTransform);
 
             // Reset trajectories 
             currentTrajectoryIndex = 0;
