@@ -11,7 +11,7 @@ public class PlayerMovement : MonoBehaviour
     public Button loadSceneButton; // Button to load a new scene
     public GameObject newAgentPrefab;
     public CameraFollow cameraFollowScript; // Reference to the camera follow script
-
+    public bool swapped = false;
 
     private NavMeshAgent agent; // NavMeshAgent variable
     private List<Vector3> currentTrajectory; // The currently active trajectory
@@ -47,7 +47,10 @@ public class PlayerMovement : MonoBehaviour
 
             // Show the button when the trajectory is completed
             nextTrajectoryButton.gameObject.SetActive(true);
-            loadSceneButton.gameObject.SetActive(true);
+            if (!swapped)
+            {
+                loadSceneButton.gameObject.SetActive(true);
+            }
         }
     }
 
@@ -58,17 +61,39 @@ public class PlayerMovement : MonoBehaviour
         {
             new List<Vector3> // Trajectory 1
             {
-                new Vector3(0, 0, 0),
-                new Vector3(1f, 0, 2f),
-                new Vector3(2f, 0, 0),
-                new Vector3(3f, 0, 1f)
+                new Vector3(0, 0.05f, 0),
+                new Vector3(1f, 0.05f, 2f),
+                new Vector3(6f, 0.05f, 2),
+                new Vector3(3f, 0.05f, 0f)
             },
             new List<Vector3> // Trajectory 2
             {
-                new Vector3(0, 0, 0),
-                new Vector3(-5f, 0, -5f),
-                new Vector3(-10f, 0, 0),
-                new Vector3(-15f, 0, -5f)
+                new Vector3(0, 0.05f, 0),
+                new Vector3(-5.55f, 0.05f, -5.76f),
+                new Vector3(-5.83f, 0.05f, 0.33f),
+                new Vector3(-3.99f, 0.05f, 5.35f)
+            },
+            new List<Vector3> // Trajectory 3
+            {
+                new Vector3(0, 0.05f, 0),
+                new Vector3(1f,  0.05f, 2f),
+                new Vector3(2f,  0.05f, 0),
+                new Vector3(3.43f,  0.05f, 5.88f)
+            },
+            new List<Vector3> // Trajectory 4
+            {
+                new Vector3(0, 0.05f, 0),
+                new Vector3(-5.55f, 0.05f, -5.76f),
+                new Vector3(-5.83f, 0.05f, 0.33f),
+                new Vector3(0.24f, 0.05f, 3.36f),
+                new Vector3(-.85f, 0.05f, -0.34f)
+            },
+            new List<Vector3> // Trajectory 5
+            {
+                new Vector3(2.77f, 0.05f, -6f),
+                new Vector3(6.25f, 0.05f, -2.16f),
+                new Vector3(6.25f, 0.05f, 2.16f),
+                new Vector3(-3.62f, 0.05f, 5.62f)
             }
         };
     }
@@ -129,8 +154,9 @@ public class PlayerMovement : MonoBehaviour
     // Move the NavMeshAgent along the current trajectory
     void MoveAlongTrajectory()
     {
+        float distanceToWaypoint = Vector3.Distance(agent.transform.position, currentTrajectory[currentWaypointIndex]);
         // Check if the agent has reached the current waypoint
-        if (!agent.pathPending && agent.remainingDistance < 0.1f)
+        if (!agent.pathPending && distanceToWaypoint < 0.1f)
         {
             currentWaypointIndex++;
             if (currentWaypointIndex < currentTrajectory.Count)
@@ -158,10 +184,14 @@ public class PlayerMovement : MonoBehaviour
             // Instantiate the new agent prefab at the agent's current position and rotation
             GameObject newAgentInstance = Instantiate(newAgentPrefab, transform.position, transform.rotation);
             //GameObject.Find("DeliveryRobotBody_01_non_cute");//
+
+            newAgentInstance.SetActive(true);
             agent = newAgentInstance.GetComponent<NavMeshAgent>();
             // Use the new object's transform for subsequent updates
             Transform newTransform = newAgentInstance.transform;
+            agent.ResetPath();
             agent.speed = speed;
+            swapped = true;
             loadSceneButton.gameObject.SetActive(false);
             // Update the camera follow target
             if (cameraFollowScript != null)
@@ -217,4 +247,29 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    List<T> SampleWithoutReplacement<T>(List<T> list, int sampleCount)
+    {
+        // Copy the list to avoid modifying the original list
+        List<T> availableItems = new List<T>(list);
+        List<T> sampledItems = new List<T>();
+
+        // Ensure we don't sample more items than are available
+        sampleCount = Mathf.Min(sampleCount, availableItems.Count);
+
+        for (int i = 0; i < sampleCount; i++)
+        {
+            // Get a random index from the available items list
+            int randomIndex = Random.Range(0, availableItems.Count);
+
+            // Add the randomly selected item to the sampled list
+            sampledItems.Add(availableItems[randomIndex]);
+
+            // Remove the item to ensure it can't be selected again
+            availableItems.RemoveAt(randomIndex);
+        }
+
+        return sampledItems;
+    }
+
 }
