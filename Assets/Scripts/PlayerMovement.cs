@@ -9,7 +9,12 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5.0f; // Speed of the NavMeshAgent
     public Button nextTrajectoryButton; // Button to start the next trajectory
     public Button loadSceneButton; // Button to load a new scene
-    public GameObject newAgentPrefab;
+
+    public GameObject robotPrefab1;
+    public GameObject robotPrefab2;
+
+    private GameObject activeRobot;       // Holds the active robot instance
+
     public CameraFollow cameraFollowScript; // Reference to the camera follow script
     public bool swapped = false;
 
@@ -19,10 +24,24 @@ public class PlayerMovement : MonoBehaviour
     private int currentTrajectoryIndex = 0; // Index of the current trajectory
     private bool isMoving = false; // Flag to control movement
     private Vector3 startPos = new Vector3(6, 0, -6);
+    private int prefabIndex;
 
     void Start()
     {
-        agent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
+        Debug.Log("Here");
+        prefabIndex = Random.Range(0, 2);
+        GameObject selectedPrefab = prefabIndex == 0 ? robotPrefab1 : robotPrefab2;
+
+        if (NavMesh.SamplePosition(startPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
+        {
+            // Instantiate the chosen prefab as a child of this GameObject
+            activeRobot = Instantiate(selectedPrefab, startPos, transform.rotation, transform);
+        }
+        else
+        {
+            Debug.LogError("No valid NavMesh point near the spawn position.");
+        }
+        agent = activeRobot.GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
         agent.speed = speed; // Set the speed of the NavMeshAgent
 
         InitializeTrajectories(); // Initialize the trajectories
@@ -176,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
 
     void LoadNewScene()
     {
+        GameObject newAgentPrefab = prefabIndex == 0 ? robotPrefab2 : robotPrefab1;
         if (newAgentPrefab != null)
         {
             // Destroy the existing agent
@@ -198,7 +218,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 cameraFollowScript.target = newTransform;
             }
-            
+
             // Reset robot position 
             TeleportToStartingPosition(startPos, newTransform);
 
