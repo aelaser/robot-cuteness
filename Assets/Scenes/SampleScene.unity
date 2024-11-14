@@ -160,6 +160,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &70367721
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -311,6 +312,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &82644573
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -722,6 +724,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &210917937
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -873,6 +876,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &260953513
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1024,6 +1028,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &297247940
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1609,6 +1614,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!1 &461666398
 GameObject:
   m_ObjectHideFlags: 0
@@ -1647,6 +1653,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &461666400
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2057,15 +2064,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6636612054927785612, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6.64
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 6636612054927785612, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.0040268414
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6636612054927785612, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.25
+      value: -6
       objectReference: {fileID: 0}
     - target: {fileID: 6636612054927785612, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2264,6 +2271,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!1 &701065250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2302,6 +2310,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &701065252
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2547,6 +2556,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &713288003
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2687,6 +2697,72 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &809833887
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809833879}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df16bafd1823475786592483e16f39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  nextTrajectoryButton: {fileID: 1955885321}
+  loadSceneButton: {fileID: 383107790}
+  newAgentPrefab: {fileID: 809833879}
+  cameraFollowScript: {fileID: 1670224752}
+  swapped: 0
+--- !u!65 &809833888
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809833879}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.60717034, y: 1.3007869, z: 0.83800024}
+  m_Center: {x: 0.000000014901165, y: 0.66905004, z: -0.053107824}
+--- !u!54 &809833889
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809833879}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &846754831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2725,6 +2801,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &846754833
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -2876,6 +2953,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &918013300
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3124,6 +3202,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1001354392
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3499,6 +3578,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6358222656590425651, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.004026841
+      objectReference: {fileID: 0}
     - target: {fileID: 9001023801869372740, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
       propertyPath: m_Speed
       value: 3
@@ -3526,6 +3609,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1700425560717733578, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 809833883}
+    - targetCorrespondingSourceObject: {fileID: 1700425560717733578, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 809833887}
+    - targetCorrespondingSourceObject: {fileID: 1700425560717733578, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 809833889}
+    - targetCorrespondingSourceObject: {fileID: 1700425560717733578, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 809833888}
   m_SourcePrefab: {fileID: 100100000, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
 --- !u!1 &1058029823
 GameObject:
@@ -3565,6 +3657,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1058029825
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3716,6 +3809,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1083260752
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3867,6 +3961,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1085220248
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4018,6 +4113,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1125653514
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4169,6 +4265,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1138196214
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4400,6 +4497,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1280937208
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4791,6 +4889,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1584553104
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5050,6 +5149,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1722986764
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5322,6 +5422,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &1938832112
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5574,6 +5675,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!1 &2012170493
 GameObject:
   m_ObjectHideFlags: 0
@@ -5746,6 +5848,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &2056972799
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -5897,6 +6000,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &2109444032
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -6048,6 +6152,7 @@ MonoBehaviour:
   loadSceneButton: {fileID: 0}
   newAgentPrefab: {fileID: 0}
   cameraFollowScript: {fileID: 0}
+  swapped: 0
 --- !u!54 &2140532355
 Rigidbody:
   m_ObjectHideFlags: 0
