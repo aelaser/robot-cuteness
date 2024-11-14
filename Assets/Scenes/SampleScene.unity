@@ -158,7 +158,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &70367721
@@ -310,7 +311,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &82644573
@@ -722,7 +724,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &210917937
@@ -874,7 +877,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &260953513
@@ -1026,7 +1030,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &297247940
@@ -1612,7 +1617,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!1 &461666398
@@ -1651,7 +1657,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &461666400
@@ -2015,6 +2022,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 343749586632282134, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 343749586632282134, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
       propertyPath: agentPrefab1
       value: 
       objectReference: {fileID: 1177166671}
@@ -2022,6 +2033,10 @@ PrefabInstance:
       propertyPath: agentPrefab2
       value: 
       objectReference: {fileID: 809833879}
+    - target: {fileID: 343749586632282134, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
+      propertyPath: initialPrefab
+      value: 
+      objectReference: {fileID: 1177166671}
     - target: {fileID: 343749586632282134, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
       propertyPath: newAgentPrefab
       value: 
@@ -2105,6 +2120,10 @@ PrefabInstance:
     - target: {fileID: 9144998640308956254, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
       propertyPath: m_Name
       value: Cute_robot
+      objectReference: {fileID: 0}
+    - target: {fileID: 9144998640308956254, guid: 576bb50f1563343a18863e688c36f8ff, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2269,9 +2288,77 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
+--- !u!1 &674936576
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 674936578}
+  - component: {fileID: 674936577}
+  - component: {fileID: 674936579}
+  m_Layer: 0
+  m_Name: Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &674936577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674936576}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9df16bafd1823475786592483e16f39b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  nextTrajectoryButton: {fileID: 1955885321}
+  loadSceneButton: {fileID: 383107790}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
+  cameraFollowScript: {fileID: 1670224752}
+  swapped: 0
+--- !u!4 &674936578
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674936576}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -34.682564, y: 38.476864, z: 8.881971}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &674936579
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 674936576}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63270bbf9e3bf984292c11703c30324f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robotPrefab1: {fileID: 1177166671}
+  robotPrefab2: {fileID: 809833879}
+  targetDestination: {fileID: 0}
 --- !u!1 &701065250
 GameObject:
   m_ObjectHideFlags: 0
@@ -2308,7 +2395,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &701065252
@@ -2554,7 +2642,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &713288003
@@ -2704,7 +2793,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 809833879}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9df16bafd1823475786592483e16f39b, type: 3}
   m_Name: 
@@ -2712,7 +2801,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 1955885321}
   loadSceneButton: {fileID: 383107790}
-  newAgentPrefab: {fileID: 809833879}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 1670224752}
   swapped: 0
 --- !u!65 &809833888
@@ -2763,6 +2853,21 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &809833893
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 809833879}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63270bbf9e3bf984292c11703c30324f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  robotPrefab1: {fileID: 1177166671}
+  robotPrefab2: {fileID: 809833879}
+  targetDestination: {fileID: 0}
 --- !u!1 &846754831
 GameObject:
   m_ObjectHideFlags: 0
@@ -2799,7 +2904,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &846754833
@@ -2951,7 +3057,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &918013300
@@ -3200,7 +3307,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1001354392
@@ -3572,7 +3680,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 624379711556897920, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2500528300980708446, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
       propertyPath: m_Enabled
@@ -3618,6 +3726,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1700425560717733578, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
       insertIndex: -1
       addedObject: {fileID: 809833888}
+    - targetCorrespondingSourceObject: {fileID: 1700425560717733578, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 809833893}
   m_SourcePrefab: {fileID: 100100000, guid: 79a828db87488468ca949118a16b4f4f, type: 3}
 --- !u!1 &1058029823
 GameObject:
@@ -3655,7 +3766,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1058029825
@@ -3807,7 +3919,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1083260752
@@ -3959,7 +4072,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1085220248
@@ -4111,7 +4225,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1125653514
@@ -4263,7 +4378,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1138196214
@@ -4458,7 +4574,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.60717034, y: 1.3007869, z: 0.83800024}
-  m_Center: {x: 0.000000014901165, y: 0.66905004, z: -0.053107824}
+  m_Center: {x: 0.000000014901165, y: 0.66905004, z: 0.05310782}
 --- !u!1 &1280937206
 GameObject:
   m_ObjectHideFlags: 0
@@ -4495,7 +4611,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1280937208
@@ -4887,7 +5004,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1584553104
@@ -5147,7 +5265,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1722986764
@@ -5420,7 +5539,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &1938832112
@@ -5673,7 +5793,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!1 &2012170493
@@ -5846,7 +5967,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &2056972799
@@ -5998,7 +6120,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &2109444032
@@ -6150,7 +6273,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
-  newAgentPrefab: {fileID: 0}
+  robotPrefab1: {fileID: 0}
+  robotPrefab2: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
 --- !u!54 &2140532355
@@ -6304,3 +6428,4 @@ SceneRoots:
   - {fileID: 1046916323}
   - {fileID: 627356880}
   - {fileID: 1670224755}
+  - {fileID: 674936578}
