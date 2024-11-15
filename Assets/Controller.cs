@@ -1,40 +1,52 @@
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections.Generic;
+using UnityEngine.UI; // Required for UI elements
 
-public class RobotController : MonoBehaviour
+public class NavMeshAgentWithMeshes : MonoBehaviour
 {
-    public GameObject robotPrefab1;
-    public GameObject robotPrefab2;
-
-    private GameObject activeRobot;       // Holds the active robot instance
-    private NavMeshAgent navMeshAgent;    // NavMeshAgent for controlling movement
-
-    public Transform targetDestination;   // Assign a target in the Inspector or dynamically set it
+    public GameObject[] meshOptions;   // Array to hold child GameObjects with different meshes
+    private int activeMeshIndex = -1;  // Tracks the currently active mesh index
+    public Button loadSceneButton; // Button to load a new scene
+    private NavMeshAgent navMeshAgent;
 
     void Start()
     {
-        // Randomly choose between the two prefabs
-        GameObject selectedPrefab = Random.Range(0, 2) == 0 ? robotPrefab1 : robotPrefab2;
-
-        // Instantiate the chosen prefab as a child of this GameObject
-        activeRobot = Instantiate(selectedPrefab, transform.position, transform.rotation, transform);
-
-        // Add a NavMeshAgent component if the prefab doesn't already have one
-        navMeshAgent = activeRobot.GetComponent<NavMeshAgent>();
+        // Get the NavMeshAgent component
+        navMeshAgent = GetComponent<NavMeshAgent>();
         if (navMeshAgent == null)
         {
-            navMeshAgent = activeRobot.AddComponent<NavMeshAgent>();
+            Debug.LogError("No NavMeshAgent component found on this GameObject.");
+            return;
+        }
+
+        // Check if mesh options are assigned
+        if (meshOptions.Length == 0)
+        {
+            Debug.LogError("No mesh options assigned in the Inspector.");
+            return;
+        }
+
+        // Randomly select a starting mesh
+        activeMeshIndex = Random.Range(0, meshOptions.Length);
+        SetActiveMesh(activeMeshIndex);
+        loadSceneButton.onClick.AddListener(SwitchToNextMesh);
+    }
+
+    // Method to set one mesh active and disable others
+    void SetActiveMesh(int index)
+    {
+        for (int i = 0; i < meshOptions.Length; i++)
+        {
+            meshOptions[i].SetActive(i == index);
         }
     }
 
-
-    void Update()
+    // Method to switch to the next mesh in the array
+    public void SwitchToNextMesh()
     {
-        // Check if the agent has reached its destination
-        if (navMeshAgent != null && !navMeshAgent.pathPending && navMeshAgent.remainingDistance < 0.1f)
-        {
-            // You can add behavior here for when the robot reaches its destination
-            Debug.Log("Robot has reached its destination.");
-        }
+        // Increment the index and wrap around if needed
+        activeMeshIndex = (activeMeshIndex + 1) % meshOptions.Length;
+        SetActiveMesh(activeMeshIndex);
     }
 }
