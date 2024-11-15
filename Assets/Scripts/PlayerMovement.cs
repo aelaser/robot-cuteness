@@ -10,11 +10,6 @@ public class PlayerMovement : MonoBehaviour
     public Button nextTrajectoryButton; // Button to start the next trajectory
     public Button loadSceneButton; // Button to load a new scene
 
-    public GameObject robotPrefab1;
-    public GameObject robotPrefab2;
-
-    private GameObject activeRobot;       // Holds the active robot instance
-
     public CameraFollow cameraFollowScript; // Reference to the camera follow script
     public bool swapped = false;
 
@@ -26,22 +21,13 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 startPos = new Vector3(6, 0, -6);
     private int prefabIndex;
 
+    public GameObject[] meshOptions;   // Array to hold child GameObjects with different meshes
+    private int activeMeshIndex;
     void Start()
     {
-        Debug.Log("Here");
-        prefabIndex = Random.Range(0, 2);
-        GameObject selectedPrefab = prefabIndex == 0 ? robotPrefab1 : robotPrefab2;
-
-        if (NavMesh.SamplePosition(startPos, out NavMeshHit hit, 2.0f, NavMesh.AllAreas))
-        {
-            // Instantiate the chosen prefab as a child of this GameObject
-            activeRobot = Instantiate(selectedPrefab, startPos, transform.rotation, transform);
-        }
-        else
-        {
-            Debug.LogError("No valid NavMesh point near the spawn position.");
-        }
-        agent = activeRobot.GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
+        activeMeshIndex = Random.Range(0, 2);
+        SetActiveMesh(activeMeshIndex);
+        agent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
         agent.speed = speed; // Set the speed of the NavMeshAgent
 
         InitializeTrajectories(); // Initialize the trajectories
@@ -50,7 +36,16 @@ public class PlayerMovement : MonoBehaviour
         nextTrajectoryButton.gameObject.SetActive(false); // Hide the button initially
         loadSceneButton.gameObject.SetActive(false);
         nextTrajectoryButton.onClick.AddListener(StartNextTrajectory); // Add listener for button click
-        loadSceneButton.onClick.AddListener(LoadNewScene);
+        loadSceneButton.onClick.AddListener(LoadNewRobot);
+    }
+    // Method to set one mesh active and disable others
+    void SetActiveMesh(int index)
+    {
+        Debug.Log(index);
+        for (int i = 0; i < meshOptions.Length; i++)
+        {
+            meshOptions[i].SetActive(i == index);
+        }
     }
 
     void Update()
@@ -73,6 +68,106 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+
+    // Start a specific trajectory by index
+    public void StartTrajectory(int trajectoryIndex)
+    {
+        if (trajectoryIndex < 0 || trajectoryIndex >= trajectories.Count)
+        {
+            Debug.LogError("Invalid trajectory index!");
+            return;
+        }
+
+        currentTrajectory = trajectories[trajectoryIndex];
+        currentWaypointIndex = 0;
+        isMoving = true;
+
+        if (currentTrajectory.Count > 0)
+        {
+            nextTrajectoryButton.gameObject.SetActive(false);
+
+            loadSceneButton.gameObject.SetActive(false);// Hide the button when movement starts
+            MoveToNextWaypoint(); // Start moving to the first waypoint
+        }
+    }
+
+    // Start the next trajectory
+    void StartNextTrajectory()
+    {
+        if (currentTrajectoryIndex + 1 < trajectories.Count)
+        {
+            // Increment the trajectory index
+            currentTrajectoryIndex++;
+
+            // Instantly teleport the robot to a fixed starting position 
+            TeleportToStartingPosition(startPos, transform);
+
+            // Start the new trajectory
+            StartTrajectory(currentTrajectoryIndex);
+        }
+        else
+        {
+            Debug.Log("All trajectories completed!");
+            nextTrajectoryButton.gameObject.SetActive(false);
+            if (!swapped) {
+                loadSceneButton.gameObject.SetActive(true);// Hide the button if no more trajectories
+            }
+        }
+    }
+
+    // Teleport the robot to the starting position
+    void TeleportToStartingPosition(Vector3 startingPosition, Transform newTransform)
+    {
+        agent.enabled = false; // Disable the NavMeshAgent to modify the transform directly
+        newTransform.position = startingPosition; // Instantly set the robot's position
+        agent.enabled = true; // Re-enable the NavMeshAgent for subsequent movement
+        Debug.Log("Teleported to starting position: " + startingPosition);
+    }
+    // Move the NavMeshAgent along the current trajectory
+    void MoveAlongTrajectory()
+    {
+        float distanceToWaypoint = Vector3.Distance(agent.transform.position, currentTrajectory[currentWaypointIndex]);
+        // Debug.Log(distanceToWaypoint);
+            // Check if the agent has reached the current waypoint
+        if (!agent.pathPending && distanceToWaypoint < 0.1f)
+        {
+            currentWaypointIndex++;
+            if (currentWaypointIndex < currentTrajectory.Count)
+            {
+                MoveToNextWaypoint();
+            }
+        }
+    }
+
+    // Set the agent's destination to the next waypoint
+    void MoveToNextWaypoint()
+    {
+        Vector3 nextWaypoint = currentTrajectory[currentWaypointIndex];
+        agent.SetDestination(nextWaypoint);
+        Debug.Log("Moving to waypoint: " + nextWaypoint);
+    }
+
+    void LoadNewRobot()
+    {
+        // Increment the index and wrap around if needed
+        activeMeshIndex = (activeMeshIndex + 1) % meshOptions.Length;
+        SetActiveMesh(activeMeshIndex);
+        
+        
+        agent.speed = speed;
+        swapped = true;
+        loadSceneButton.gameObject.SetActive(false);
+
+        // Reset robot position 
+        TeleportToStartingPosition(startPos, transform);
+
+        // Reset trajectories 
+        currentTrajectoryIndex = 0;
+
+        StartTrajectory(currentTrajectoryIndex); // Start trajectory
+    }
+    
+    
     // Initialize static trajectories with predefined waypoints
     void InitializeTrajectories()
     {
@@ -115,181 +210,6 @@ public class PlayerMovement : MonoBehaviour
                 new Vector3(-3.62f, 0.05f, 5.62f)
             }
         };
-    }
-
-    // Start a specific trajectory by index
-    public void StartTrajectory(int trajectoryIndex)
-    {
-        if (trajectoryIndex < 0 || trajectoryIndex >= trajectories.Count)
-        {
-            Debug.LogError("Invalid trajectory index!");
-            return;
-        }
-
-        currentTrajectory = trajectories[trajectoryIndex];
-        currentWaypointIndex = 0;
-        isMoving = true;
-
-        if (currentTrajectory.Count > 0)
-        {
-            nextTrajectoryButton.gameObject.SetActive(false);
-
-            loadSceneButton.gameObject.SetActive(false);// Hide the button when movement starts
-            MoveToNextWaypoint(); // Start moving to the first waypoint
-        }
-    }
-
-    // Start the next trajectory
-    void StartNextTrajectory()
-    {
-        if (currentTrajectoryIndex + 1 < trajectories.Count)
-        {
-            // Increment the trajectory index
-            currentTrajectoryIndex++;
-
-            // Instantly teleport the robot to a fixed starting position 
-            TeleportToStartingPosition(startPos, transform);
-
-            // Start the new trajectory
-            StartTrajectory(currentTrajectoryIndex);
-        }
-        else
-        {
-            Debug.Log("All trajectories completed!");
-            nextTrajectoryButton.gameObject.SetActive(false);
-
-            loadSceneButton.gameObject.SetActive(true);// Hide the button if no more trajectories
-        }
-    }
-
-    // Teleport the robot to the starting position
-    void TeleportToStartingPosition(Vector3 startingPosition, Transform newTransform)
-    {
-        agent.enabled = false; // Disable the NavMeshAgent to modify the transform directly
-        newTransform.position = startingPosition; // Instantly set the robot's position
-        agent.enabled = true; // Re-enable the NavMeshAgent for subsequent movement
-        Debug.Log("Teleported to starting position: " + startingPosition);
-    }
-    // Move the NavMeshAgent along the current trajectory
-    void MoveAlongTrajectory()
-    {
-        float distanceToWaypoint = Vector3.Distance(agent.transform.position, currentTrajectory[currentWaypointIndex]);
-        // Check if the agent has reached the current waypoint
-        if (!agent.pathPending && distanceToWaypoint < 0.1f)
-        {
-            currentWaypointIndex++;
-            if (currentWaypointIndex < currentTrajectory.Count)
-            {
-                MoveToNextWaypoint();
-            }
-        }
-    }
-
-    // Set the agent's destination to the next waypoint
-    void MoveToNextWaypoint()
-    {
-        Vector3 nextWaypoint = currentTrajectory[currentWaypointIndex];
-        agent.SetDestination(nextWaypoint);
-        Debug.Log("Moving to waypoint: " + nextWaypoint);
-    }
-
-    void LoadNewScene()
-    {
-        GameObject newAgentPrefab = prefabIndex == 0 ? robotPrefab2 : robotPrefab1;
-        if (newAgentPrefab != null)
-        {
-            // Destroy the existing agent
-            Destroy(agent.gameObject);
-
-            // Instantiate the new agent prefab at the agent's current position and rotation
-            GameObject newAgentInstance = Instantiate(newAgentPrefab, transform.position, transform.rotation);
-            //GameObject.Find("DeliveryRobotBody_01_non_cute");//
-
-            newAgentInstance.SetActive(true);
-            agent = newAgentInstance.GetComponent<NavMeshAgent>();
-            // Use the new object's transform for subsequent updates
-            Transform newTransform = newAgentInstance.transform;
-            agent.ResetPath();
-            agent.speed = speed;
-            swapped = true;
-            loadSceneButton.gameObject.SetActive(false);
-            // Update the camera follow target
-            if (cameraFollowScript != null)
-            {
-                cameraFollowScript.target = newTransform;
-            }
-
-            // Reset robot position 
-            TeleportToStartingPosition(startPos, newTransform);
-
-            // Reset trajectories 
-            currentTrajectoryIndex = 0;
-
-
-            StartTrajectory(currentTrajectoryIndex); // Start trajectory
-        }
-    }
-
-    void OnDrawGizmos()
-    {
-        if (trajectories != null)
-        {
-            Gizmos.color = Color.green;
-
-            foreach (var trajectory in trajectories)
-            {
-                for (int i = 0; i < trajectory.Count; i++)
-                {
-                    // Draw spheres at waypoints
-                    Gizmos.DrawSphere(trajectory[i], 0.3f);
-
-                    // Draw lines between waypoints
-                    if (i < trajectory.Count - 1)
-                    {
-                        Gizmos.DrawLine(trajectory[i], trajectory[i + 1]);
-                    }
-                }
-            }
-        }
-
-        // Draw the current trajectory in a different color (e.g., red)
-        if (currentTrajectory != null)
-        {
-            Gizmos.color = Color.red;
-            for (int i = 0; i < currentTrajectory.Count; i++)
-            {
-                Gizmos.DrawSphere(currentTrajectory[i], 0.3f);
-
-                if (i < currentTrajectory.Count - 1)
-                {
-                    Gizmos.DrawLine(currentTrajectory[i], currentTrajectory[i + 1]);
-                }
-            }
-        }
-    }
-
-    List<T> SampleWithoutReplacement<T>(List<T> list, int sampleCount)
-    {
-        // Copy the list to avoid modifying the original list
-        List<T> availableItems = new List<T>(list);
-        List<T> sampledItems = new List<T>();
-
-        // Ensure we don't sample more items than are available
-        sampleCount = Mathf.Min(sampleCount, availableItems.Count);
-
-        for (int i = 0; i < sampleCount; i++)
-        {
-            // Get a random index from the available items list
-            int randomIndex = Random.Range(0, availableItems.Count);
-
-            // Add the randomly selected item to the sampled list
-            sampledItems.Add(availableItems[randomIndex]);
-
-            // Remove the item to ensure it can't be selected again
-            availableItems.RemoveAt(randomIndex);
-        }
-
-        return sampledItems;
     }
 
 }
