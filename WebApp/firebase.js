@@ -59,7 +59,7 @@ window.storeButtonClickData = function(buttonName) {
 
 window.storeEmailData = function(email) {
     // Sanitize email to create a valid Firebase key
-    const cleaned_email = email.replace('.', ',');
+    const cleaned_email = email.replace('.', '_');
     console.log("email logged:", cleaned_email);
    // currentUserEmail = sanitizedEmail; // Store globally for button clicks
     currentUserEmail = cleaned_email;
