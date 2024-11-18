@@ -3,12 +3,17 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 using System.Text.RegularExpressions;
+using System.Runtime.InteropServices; // For calling JS functions
 
 public class MainMenu : MonoBehaviour
 {
     public TMP_InputField emailInputField;  // TextMeshPro Input Field
     public TMP_Text errorMessage;           // TextMeshPro Text for displaying error messages
     public Button nextButton;               // Button that triggers the scene change
+
+    // Declare the JavaScript function for WebGL interop
+    [DllImport("__Internal")]
+    private static extern void storeEmailData(string email);
 
     void Start()
     {
@@ -20,7 +25,8 @@ public class MainMenu : MonoBehaviour
     {
         if (IsValidEmail(emailInputField.text))
         {
-            PrintValidEmail(); // Print the email only if it's valid
+            string email = emailInputField.text;
+            SendEmailToFb(email); // Send valid email to Firebase
             errorMessage.text = ""; // Clear any previous error messages
             PlayGame(); // Load the next scene since the email is valid
         }
@@ -30,9 +36,12 @@ public class MainMenu : MonoBehaviour
         }
     }
 
-    private void PrintValidEmail()
+    private void SendEmailToFb(string email)
     {
-        Debug.Log("Valid Email: " + emailInputField.text); // Only log valid emails
+        Debug.Log("Valid Email: " + email); // Log the valid email
+        #if UNITY_WEBGL
+        storeEmailData(email); // Call the JS function to store the email in Firebase
+        #endif
     }
 
     public void PlayGame()
