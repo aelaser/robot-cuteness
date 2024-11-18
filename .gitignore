@@ -67,3 +67,30 @@ node_modules/
 
 # dataconnect generated files
 .dataconnect
+
+# Unity specific
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Ll]ogs/
+MemoryCaptures/
+UserSettings/
+
+# OS generated
+.DS_Store
+Thumbs.db
+
+# IDE and Editor files
+.vs/
+.idea/
+
+# Unity Package Manager
+Packages/
+
+# Build directories
+Build/
+Builds/
+
+# Unity generated file
+*.csproj
+*.sln
