@@ -181,7 +181,17 @@ public class PlayerMovement : MonoBehaviour
         loadSceneButton.onClick.AddListener(() => { isExperimentEnded = true; LoadNewRobot(); });
         loadSceneButton.gameObject.SetActive(false);
     }
-    
+    //for encapsulation lol
+      public int GetCurrentTrajectoryIndex()
+    {
+        return currentTrajectoryIndex;
+    }
+
+    public int GetActiveMeshIndex()
+    {
+        return activeMeshIndex;
+    }
+   
     
     // Initialize static trajectories with predefined waypoints
     void InitializeTrajectories()

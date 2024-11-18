@@ -34,26 +34,29 @@ var currentUserEmail = "";
 
 
 
-window.storeButtonClickData = function(buttonName) {
+window.storeButtonClickData = function(buttonName, robotType, trajectory_num) {
     // if (!currentUserEmail) {
     //     console.error("No email set. Ensure storeEmailData is called first.");
     //     return;
     // }
 
     // Construct the reference to the specific user's button click data
-    const buttonRef = ref(database, `user clicks/${currentUserEmail}/${buttonName}`);
+    console.log(`Robot: ${robotType}, Iteration: ${trajectory_num}, Feedback: ${buttonName}`);
+
+    const buttonRef = ref(database, `user clicks/${currentUserEmail}/${robotType}/${trajectory_num}/${buttonName}`);
 
     // Use a transaction to safely increment the count
     runTransaction(buttonRef, (currentValue) => {
         return (currentValue || 0) + 1; // Increment the current value or start from 1 if it doesn't exist
     })
     .then(() => {
-        console.log(`${buttonName} count incremented successfully.`);
+        console.log(`${buttonName} count incremented successfully for robot ${robotType}, trajectory ${trajectory_num}.`);
     })
     .catch((error) => {
-        console.error(`Error incrementing ${buttonName} count:`, error);
+        console.error(`Error incrementing ${buttonName} for robot ${robotType}, trajectory ${trajectory_num}:`, error);
     });
 };
+
 
 
 
@@ -67,22 +70,22 @@ window.storeEmailData = function(email) {
     const emailRef = ref(database, 'user clicks/' + cleaned_email);
 
     // Initialize user data if not already present
-    get(emailRef).then(snapshot => {
-        if (!snapshot.exists()) {
-            set(emailRef, {
-                ThumbsUp: 0,
-                ThumbsDown: 0
-            }).then(() => {
-                console.log("User data initialized for:", email);
-            }).catch(error => {
-                console.error("Error initializing user data:", error);
-            });
-        } else {
-            console.log("User data already exists for:", email);
-        }
-    }).catch(error => {
-        console.error("Error checking user data:", error);
-    });
+    // get(emailRef).then(snapshot => {
+    //     if (!snapshot.exists()) {
+    //         set(emailRef, {
+    //             ThumbsUp: 0,
+    //             ThumbsDown: 0
+    //         }).then(() => {
+    //             console.log("User data initialized for:", email);
+    //         }).catch(error => {
+    //             console.error("Error initializing user data:", error);
+    //         });
+    //     } else {
+    //         console.log("User data already exists for:", email);
+    //     }
+    // }).catch(error => {
+    //     console.error("Error checking user data:", error);
+    // });
 };
 
 

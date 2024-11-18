@@ -1,10 +1,13 @@
 mergeInto(LibraryManager.library, {
-   storeButtonClickData: function(argument) {
-       var argString = UTF8ToString(argument);
+   storeButtonClickData: function(argument, robot, iteration) {
+       var argString = UTF8ToString(argument);  // Convert the Unity argument to a string
+       var robotType = UTF8ToString(robot);     // Convert the robot argument to string (if needed)
        console.log("JavaScript function called with argument:", argString);
-       
+       console.log("Robot Type:", robotType);
+       console.log("Iteration:", iteration);
+
        if (window.storeButtonClickData) {
-           window.storeButtonClickData(argString);  // Call the global Firebase function
+           window.storeButtonClickData(argString, robotType, iteration);  // Call the global Firebase function
        } else {
            console.error("storeButtonClickData is not defined.");
        }
