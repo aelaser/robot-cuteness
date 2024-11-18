@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI; // Required for UI elements
+using TMPro;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -12,6 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     public CameraFollow cameraFollowScript; // Reference to the camera follow script
     public bool swapped = false;
+    private bool isExperimentEnded = false; // Track if experiment should end
 
     private NavMeshAgent agent; // NavMeshAgent variable
     private List<Vector3> currentTrajectory; // The currently active trajectory
@@ -61,10 +64,8 @@ public class PlayerMovement : MonoBehaviour
 
             // Show the button when the trajectory is completed
             nextTrajectoryButton.gameObject.SetActive(true);
-            if (!swapped)
-            {
-                loadSceneButton.gameObject.SetActive(true);
-            }
+            
+            loadSceneButton.gameObject.SetActive(true);
         }
     }
 
@@ -109,9 +110,9 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("All trajectories completed!");
             nextTrajectoryButton.gameObject.SetActive(false);
-            if (!swapped) {
-                loadSceneButton.gameObject.SetActive(true);// Hide the button if no more trajectories
-            }
+            
+            loadSceneButton.gameObject.SetActive(true);// Hide the button if no more trajectories
+
         }
     }
 
@@ -149,6 +150,14 @@ public class PlayerMovement : MonoBehaviour
 
     void LoadNewRobot()
     {
+        if (isExperimentEnded)
+        {
+            Debug.Log("Experiment Ended!");
+            // Add your end experiment logic here
+            SceneManager.LoadSceneAsync(2);
+            // Application.Quit(); // Example: quit the application
+            return;
+        }
         // Increment the index and wrap around if needed
         activeMeshIndex = (activeMeshIndex + 1) % meshOptions.Length;
         SetActiveMesh(activeMeshIndex);
@@ -165,6 +174,12 @@ public class PlayerMovement : MonoBehaviour
         currentTrajectoryIndex = 0;
 
         StartTrajectory(currentTrajectoryIndex); // Start trajectory
+
+        // Update button for "End Experiment" functionality
+        loadSceneButton.GetComponentInChildren<TextMeshProUGUI>().text = "End Study";
+        loadSceneButton.onClick.RemoveAllListeners();
+        loadSceneButton.onClick.AddListener(() => { isExperimentEnded = true; LoadNewRobot(); });
+        loadSceneButton.gameObject.SetActive(false);
     }
     
     
