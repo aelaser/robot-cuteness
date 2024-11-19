@@ -434,7 +434,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1510931063}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
         m_MethodName: 
         m_Mode: 1
@@ -570,7 +570,6 @@ GameObject:
   - component: {fileID: 1510931062}
   - component: {fileID: 1510931061}
   - component: {fileID: 1510931060}
-  - component: {fileID: 1510931063}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -652,21 +651,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1510931063
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1510931059}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2efdf4a2015ee4ab397b56e01e231e8f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  emailInputField: {fileID: 0}
-  errorMessage: {fileID: 0}
-  nextButton: {fileID: 1400069699}
 --- !u!1 &1519811993
 GameObject:
   m_ObjectHideFlags: 0

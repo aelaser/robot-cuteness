@@ -12,6 +12,10 @@ public class PlayerMovement : MonoBehaviour
     public Button nextTrajectoryButton; // Button to start the next trajectory
     public Button loadSceneButton; // Button to load a new scene
 
+    public Button thumbsUpButton;
+
+    public Button thumbsDownButton;
+
     public CameraFollow cameraFollowScript; // Reference to the camera follow script
     public bool swapped = false;
     private bool isExperimentEnded = false; // Track if experiment should end
@@ -66,6 +70,9 @@ public class PlayerMovement : MonoBehaviour
             nextTrajectoryButton.gameObject.SetActive(true);
             
             loadSceneButton.gameObject.SetActive(true);
+
+            thumbsDownButton.gameObject.SetActive(false);
+            thumbsUpButton.gameObject.SetActive(false);
         }
     }
 
@@ -88,6 +95,8 @@ public class PlayerMovement : MonoBehaviour
             nextTrajectoryButton.gameObject.SetActive(false);
 
             loadSceneButton.gameObject.SetActive(false);// Hide the button when movement starts
+            thumbsDownButton.gameObject.SetActive(true);
+            thumbsUpButton.gameObject.SetActive(true);
             MoveToNextWaypoint(); // Start moving to the first waypoint
         }
     }
@@ -112,6 +121,9 @@ public class PlayerMovement : MonoBehaviour
             nextTrajectoryButton.gameObject.SetActive(false);
             
             loadSceneButton.gameObject.SetActive(true);// Hide the button if no more trajectories
+
+            thumbsDownButton.gameObject.SetActive(false);
+            thumbsUpButton.gameObject.SetActive(false);
 
         }
     }

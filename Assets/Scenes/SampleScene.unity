@@ -158,6 +158,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -310,6 +312,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -722,6 +726,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -874,6 +880,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -1026,6 +1034,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -1868,6 +1878,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -1907,6 +1919,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -2684,6 +2698,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -2723,6 +2739,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -2969,6 +2987,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -3121,6 +3141,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -3365,6 +3387,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -3754,9 +3778,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9df16bafd1823475786592483e16f39b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
+  speed: 1
   nextTrajectoryButton: {fileID: 1955885321}
   loadSceneButton: {fileID: 383107790}
+  thumbsUpButton: {fileID: 504534022}
+  thumbsDownButton: {fileID: 1528718198}
   cameraFollowScript: {fileID: 1670224752}
   swapped: 0
   meshOptions:
@@ -3846,6 +3872,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -4137,6 +4165,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -4289,6 +4319,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -4441,6 +4473,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -4630,6 +4664,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -5155,6 +5191,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -5507,6 +5545,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -5825,6 +5865,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -6078,6 +6120,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -6251,6 +6295,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -6403,6 +6449,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
@@ -6555,6 +6603,8 @@ MonoBehaviour:
   speed: 5
   nextTrajectoryButton: {fileID: 0}
   loadSceneButton: {fileID: 0}
+  thumbsUpButton: {fileID: 0}
+  thumbsDownButton: {fileID: 0}
   cameraFollowScript: {fileID: 0}
   swapped: 0
   meshOptions: []
