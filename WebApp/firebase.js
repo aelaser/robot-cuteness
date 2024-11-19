@@ -62,8 +62,9 @@ window.storeButtonClickData = function(buttonName, robotType, trajectory_num) {
 
 window.storeEmailData = function(email) {
     // Sanitize email to create a valid Firebase key
-    const cleaned_email = email.replace('.', '_');
-    console.log("email logged:", cleaned_email);
+   // const cleaned_email = email.replace('.', '_');
+    const cleaned_email = email;
+    console.log("unique id logged:", cleaned_email);
    // currentUserEmail = sanitizedEmail; // Store globally for button clicks
     currentUserEmail = cleaned_email;
 
@@ -87,6 +88,17 @@ window.storeEmailData = function(email) {
     //     console.error("Error checking user data:", error);
     // });
 };
+
+window.CopyToClipboard = function (user_id) {
+    // Use the Clipboard API (async method)
+    navigator.clipboard.writeText(user_id).then(function() {
+        console.log("Copied to clipboard: " + user_id);
+    }).catch(function(error) {
+        console.error("Unable to copy to clipboard: ", error);
+    });
+}
+
+
 
 
 // JavaScript - WebGL Interop
