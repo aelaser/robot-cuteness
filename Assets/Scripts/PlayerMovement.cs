@@ -10,7 +10,7 @@ public class PlayerMovement : MonoBehaviour
     public List<List<Vector3>> trajectories; // List of trajectories (each trajectory is a list of waypoints)
     public float speed = 5.0f; // Speed of the NavMeshAgent
     public Button nextTrajectoryButton; // Button to start the next trajectory
-    public Button loadSceneButton; // Button to load a new scene
+    public Button loadSceneButton; // Button to load a new scene + switch robot
 
     public Button thumbsUpButton;
 
@@ -30,6 +30,9 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject[] meshOptions;   // Array to hold child GameObjects with different meshes
     private int activeMeshIndex;
+
+    public GameObject overlayCanvas;
+    public Button nextButton; // Button inside the overlay Canvas to hide it
     void Start()
     {
         activeMeshIndex = Random.Range(0, 2);
@@ -43,7 +46,16 @@ public class PlayerMovement : MonoBehaviour
         nextTrajectoryButton.gameObject.SetActive(false); // Hide the button initially
         loadSceneButton.gameObject.SetActive(false);
         nextTrajectoryButton.onClick.AddListener(StartNextTrajectory); // Add listener for button click
-        loadSceneButton.onClick.AddListener(LoadNewRobot);
+        // loadSceneButton.onClick.AddListener(() => SceneManager.LoadSceneAsync(3));
+        // SceneManager.sceneLoaded += OnSceneLoaded;
+        loadSceneButton.onClick.AddListener(ShowOverlay);
+
+        // Overlay Canvas setup
+        if (overlayCanvas != null)
+        {
+            overlayCanvas.SetActive(false); // Ensure Canvas is hidden at the start
+            nextButton.onClick.AddListener(HideOverlay); // Add listener for "Next" button
+        }
     }
     // Method to set one mesh active and disable others
     void SetActiveMesh(int index)
@@ -75,7 +87,7 @@ public class PlayerMovement : MonoBehaviour
             thumbsUpButton.gameObject.SetActive(false);
         }
     }
-
+    
 
     // Start a specific trajectory by index
     public void StartTrajectory(int trajectoryIndex)
@@ -160,7 +172,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("Moving to waypoint: " + nextWaypoint);
     }
 
-    void LoadNewRobot()
+    public void LoadNewRobot()
     {
         if (isExperimentEnded)
         {
@@ -247,6 +259,21 @@ public class PlayerMovement : MonoBehaviour
                 new Vector3(-3.62f, 0.05f, 5.62f)
             }
         };
+    }
+
+    // Show the overlay Canvas
+    void ShowOverlay()
+    {
+        overlayCanvas.SetActive(true);
+        Time.timeScale = 0; // Optional: Pause the game
+    }
+
+    // Hide the overlay Canvas
+    void HideOverlay()
+    {
+        overlayCanvas.SetActive(false);
+        LoadNewRobot();
+        Time.timeScale = 1; // Resume the game
     }
 
 }
