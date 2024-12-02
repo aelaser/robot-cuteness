@@ -33,6 +33,8 @@ public class PlayerMovement : MonoBehaviour
 
     public GameObject overlayCanvas;
     public Button nextButton; // Button inside the overlay Canvas to hide it
+    private List<int> randomizedIndices; // Randomized order of trajectory indices
+
     void Start()
     {
         activeMeshIndex = Random.Range(0, 2);
@@ -41,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
         agent.speed = speed; // Set the speed of the NavMeshAgent
 
         InitializeTrajectories(); // Initialize the trajectories
-        StartTrajectory(currentTrajectoryIndex); // Start the first trajectory
+        StartTrajectory(randomizedIndices[currentTrajectoryIndex]); // Start the first trajectory
 
         nextTrajectoryButton.gameObject.SetActive(false); // Hide the button initially
         loadSceneButton.gameObject.SetActive(false);
@@ -87,7 +89,7 @@ public class PlayerMovement : MonoBehaviour
             thumbsUpButton.gameObject.SetActive(false);
         }
     }
-    
+
 
     // Start a specific trajectory by index
     public void StartTrajectory(int trajectoryIndex)
@@ -97,7 +99,10 @@ public class PlayerMovement : MonoBehaviour
             Debug.LogError("Invalid trajectory index!");
             return;
         }
-
+        for (int i = 0; i < randomizedIndices.Count; i++) {
+            Debug.Log(randomizedIndices[i]);
+        }
+        
         currentTrajectory = trajectories[trajectoryIndex];
         currentWaypointIndex = 0;
         isMoving = true;
@@ -120,12 +125,14 @@ public class PlayerMovement : MonoBehaviour
         {
             // Increment the trajectory index
             currentTrajectoryIndex++;
+            int nextIndex = randomizedIndices[currentTrajectoryIndex];
+            
 
             // Instantly teleport the robot to a fixed starting position 
             TeleportToStartingPosition(startPos, transform);
 
             // Start the new trajectory
-            StartTrajectory(currentTrajectoryIndex);
+            StartTrajectory(nextIndex);
         }
         else
         {
@@ -195,9 +202,10 @@ public class PlayerMovement : MonoBehaviour
         TeleportToStartingPosition(startPos, transform);
 
         // Reset trajectories 
+        InitializeTrajectories();
         currentTrajectoryIndex = 0;
 
-        StartTrajectory(currentTrajectoryIndex); // Start trajectory
+        StartTrajectory(randomizedIndices[currentTrajectoryIndex]); // Start trajectory
 
         // Update button for "End Experiment" functionality
         loadSceneButton.GetComponentInChildren<TextMeshProUGUI>().text = "End Study";
@@ -208,7 +216,7 @@ public class PlayerMovement : MonoBehaviour
     //for encapsulation lol
       public int GetCurrentTrajectoryIndex()
     {
-        return currentTrajectoryIndex;
+        return randomizedIndices[currentTrajectoryIndex];
     }
 
     public int GetActiveMeshIndex()
@@ -259,6 +267,14 @@ public class PlayerMovement : MonoBehaviour
                 new Vector3(-3.62f, 0.05f, 5.62f)
             }
         };
+
+        // Create and shuffle the index list
+        randomizedIndices = new List<int>();
+        for (int i = 0; i < trajectories.Count; i++)
+        {
+            randomizedIndices.Add(i);
+        }
+        ShuffleList(randomizedIndices);
     }
 
     // Show the overlay Canvas
@@ -274,6 +290,17 @@ public class PlayerMovement : MonoBehaviour
         overlayCanvas.SetActive(false);
         LoadNewRobot();
         Time.timeScale = 1; // Resume the game
+    }
+
+    void ShuffleList(List<int> list)
+    {
+        for (int i = list.Count - 1; i > 0; i--)
+        {
+            int randomIndex = Random.Range(0, i + 1);
+            int temp = list[i];
+            list[i] = list[randomIndex];
+            list[randomIndex] = temp;
+        }
     }
 
 }
